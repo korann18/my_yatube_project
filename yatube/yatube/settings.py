@@ -9,13 +9,16 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
+    'core.apps.CoreConfig',
+    'users.apps.UsersConfig',
     'posts.apps.PostsConfig',
+    'about.apps.AboutConfig',
     'django.contrib.admin',
-    'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.auth',
 ]
 
 MIDDLEWARE = [
@@ -41,6 +44,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'core.context_processors.year.year',
             ],
         },
     },
@@ -70,7 +74,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LANGUAGE_CODE = 'ru-ru'
+LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'Europe/Kaliningrad'
 
@@ -84,3 +88,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 CONST = 10
+#LOGOUT_REDIRECT_URL = 'users:logout'
+LOGIN_URL = 'users:login'
+LOGIN_REDIRECT_URL = 'posts:index'
+
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'sent_emails')
